@@ -12,7 +12,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <mainClass>edu.uchicago.gerber.MainApp</mainClass>
+        <mainClass>seatGeekPortal.MainApp</mainClass>
     </properties>
 
     <organization>
@@ -111,7 +111,6 @@
 
     <dependencies>
         <!-- MigLayout -->
-
         <dependency>
             <groupId>com.miglayout</groupId>
             <artifactId>miglayout-javafx</artifactId>
@@ -119,11 +118,17 @@
         </dependency>
 
         <!-- Apache Commons -->
-
         <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
             <version>2.6</version>
+        </dependency>
+
+        <!-- Google GSON -->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.2.4</version>
         </dependency>
 
         

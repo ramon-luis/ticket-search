@@ -1,4 +1,4 @@
-package edu.uchicago.gerber;
+package seatGeekPortal;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
