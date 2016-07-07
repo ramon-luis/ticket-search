@@ -1,0 +1,20 @@
+TODO:
+
+CaptureWebDriver
+1. close connection with SeatGeek API
+2. update query to accept arguments
+3. add URL to SeatGeek website
+4. pagination issue?
+        process first 10
+        process 100
+        add to list as go through pages?
+
+Interface
+1. accept query
+2. display results with link
+3. update display formatting
+4. update processing icon
+
+Extras
+get image for each performer to display?
+display recommendations?
