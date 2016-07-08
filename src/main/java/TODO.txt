@@ -18,3 +18,4 @@ Interface
 Extras
 get image for each performer to display?
 display recommendations?
+open URL in webview within Java? - see ensemble
