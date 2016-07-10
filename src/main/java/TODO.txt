@@ -1,21 +1,39 @@
 TODO:
 
+Function
+1. update date/time formatting
+2. open SeatGeek link on click
+
+Personalize
+1. add status message
+2. clean up display/colors
+3. add processing icon/ticker
+
+Refactor Code
+1. organize class files
+2. comment
+3. add ReadMe
+
+Extras
+display text on hover over list results
+display recommendations?
+animated background?
+open URL in webview within Java? - see ensemble
+get image for each performer to display - possibly on hover?
+
+
+
 CaptureWebDriver
-1. close connection with SeatGeek API
-2. update query to accept arguments
-3. add URL to SeatGeek website
-4. pagination issue?
+1. close connection with SeatGeek API - DONE (shutdown exService)
+2. update query to accept arguments - DONE (rough)
+3. add URL to SeatGeek website - DONE (rough)
+4. pagination issue? - DONE (use first 25 results only)
         process first 10
         process 100
         add to list as go through pages?
 
 Interface
-1. accept query
+1. accept query - DONE
 2. display results with link
 3. update display formatting
 4. update processing icon
-
-Extras
-get image for each performer to display?
-display recommendations?
-open URL in webview within Java? - see ensemble

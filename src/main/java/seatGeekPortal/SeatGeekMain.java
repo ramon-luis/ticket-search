@@ -7,27 +7,25 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 
-public class MainApp extends Application {
+public class SeatGeekMain extends Application {
 
 
 
     public static void main(String[] args) {
         launch(args);
-
     }
 
+    @Override
     public void start(Stage stage) throws Exception {
 
-
-        String fxmlFile = "/fxml/hello.fxml";
+        String fxmlFile = "/fxml/seatGeek.fxml";
         FXMLLoader loader = new FXMLLoader();
-        Parent rootNode = (Parent) loader.load(getClass().getResourceAsStream(fxmlFile));
+        Parent rootNode = loader.load(getClass().getResourceAsStream(fxmlFile));
 
+        Scene scene = new Scene(rootNode);
+        scene.getStylesheets().add("/styles/seatGeek.css");
 
-        Scene scene = new Scene(rootNode, 400, 200);
-        scene.getStylesheets().add("/styles/styles.css");
-
-        stage.setTitle("Hello JavaFX and Maven");
+        stage.setTitle("SeatGeek");
         stage.setScene(scene);
         stage.show();
     }
