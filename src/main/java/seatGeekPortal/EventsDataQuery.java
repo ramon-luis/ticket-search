@@ -1,6 +1,8 @@
 package seatGeekPortal;
 
 import com.google.gson.Gson;
+
+import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.ArrayList;
 
@@ -31,7 +33,6 @@ import java.util.ArrayList;
 
     // callable method
     public ArrayList<Event> call() {
-        System.out.println("EventsDataQuery sQuery: " + sQuery);
 
         // get the data as a String
         // transform the data from String format into Event data class
@@ -43,6 +44,12 @@ import java.util.ArrayList;
         } catch (Exception e) {
             System.out.println("There was an error getting the data:");
             System.out.println("  " + e);
+        }
+        for (Event e : events) {
+            List<Performer> performers = e.getPerformers();
+            for (Performer p : performers) {
+                System.out.println(p.getName());
+            }
         }
 
         // return the list of events

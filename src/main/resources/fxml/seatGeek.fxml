@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.layout.*?>
 <?import java.lang.*?>
@@ -7,25 +10,39 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="fxAnchorPane" prefHeight="539.0" prefWidth="710.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seatGeekPortal.SeatGeekController">
+<AnchorPane id="pane" fx:id="fxAnchorPane" prefHeight="499.0" prefWidth="848.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seatGeekPortal.SeatGeekController">
    <children>
-      <Pane fx:id="fxTopPane" prefHeight="109.0" prefWidth="716.0">
+      <ListView fx:id="fxList" layoutX="14.0" layoutY="109.0" opacity="0.8" prefHeight="370.0" prefWidth="815.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></ListView>
+      <VBox fx:id="fxVbox" focusTraversable="true" layoutX="14.0" layoutY="14.0" prefHeight="71.0" prefWidth="682.0">
          <children>
-            <VBox id="rootPane" fx:id="fxVbox" layoutX="10.0" layoutY="19.0" prefHeight="71.0" prefWidth="697.0" styleClass="main-panel">
-               <children>
-               
-                         <Label fx:id="fxLabel" text="Let's find you the best tickets possible!" />	<TextField fx:id="fxSearchBox" prefColumnCount="30" prefHeight="36.0" prefWidth="662.0" promptText="Seach: Artist, Team, City, Venue, Date, Keyword" />
-               
-                         <Button fx:id="fxFindButton" text="Find Event(s)" />
-               </children>
-            
-                  </VBox>
+         
+                                     <Label id="search_label" fx:id="fxLabel" text="Let's find some awesome tickets!" textFill="WHITE">
+               <font>
+                  <Font name="Avenir Next Heavy" size="18.0" />
+               </font>
+               <effect>
+                  <Glow level="0.49" />
+               </effect></Label>	<TextField fx:id="fxSearchBox" cache="true" pickOnBounds="false" prefColumnCount="30" prefHeight="36.0" prefWidth="670.0" promptText="Seach: Artist, Team, City, Venue, Date, Keyword">
+               <font>
+                  <Font name="Avenir Medium" size="13.0" />
+               </font>
+               <effect>
+                  <DropShadow />
+               </effect></TextField>
          </children>
-      </Pane>
-      <Pane fx:id="fxBottomPane" layoutY="109.0" prefHeight="452.0" prefWidth="716.0">
-         <children>
-            <ListView fx:id="fxList" prefHeight="452.0" prefWidth="716.0" />
-         </children>
-      </Pane>
+      
+                              </VBox>
+   
+                                     <Button fx:id="fxFindButton" layoutX="711.0" layoutY="40.0" prefHeight="36.0" prefWidth="111.0" text="Find Event(s)">
+         <font>
+            <Font name="Avenir Next Bold" size="12.0" />
+         </font>
+         <effect>
+            <DropShadow />
+         </effect>
+      </Button>
    </children>
 </AnchorPane>

@@ -1,12 +1,19 @@
 TODO:
 
+animate background
+display recommendations
+view ticketpage in Java application
+
+
+
+
 Function
-1. update date/time formatting
-2. open SeatGeek link on click
+1. update date/time formatting - DONE
+2. open SeatGeek link on click - DONE
 
 Personalize
-1. add status message
-2. clean up display/colors
+1. add status message - SKIP (null pointer issue)
+2. clean up display/colors - DONE (basic)
 3. add processing icon/ticker
 
 Refactor Code
@@ -34,6 +41,6 @@ CaptureWebDriver
 
 Interface
 1. accept query - DONE
-2. display results with link
-3. update display formatting
+2. display results with link - DONE
+3. update display formatting - DONE
 4. update processing icon

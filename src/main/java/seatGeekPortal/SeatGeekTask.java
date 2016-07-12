@@ -1,6 +1,7 @@
 package seatGeekPortal;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -37,14 +38,6 @@ public class SeatGeekTask {
         exService.shutdownNow();
 
         return events;
-    }
-
-    public ArrayList<String> getStringsListFromEvents() {
-        ArrayList<String> eventStrings = new ArrayList<>();
-        for (Event event : events) {
-            eventStrings.add(event.getTitle() + " | " + event.getVenue() + " | " + event.getDatetimeLocal());
-        }
-        return eventStrings;
     }
 
 
