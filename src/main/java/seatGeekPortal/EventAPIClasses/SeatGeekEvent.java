@@ -1,5 +1,5 @@
 
-package seatGeekPortal;
+package seatGeekPortal.EventAPIClasses;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +8,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 @Generated("org.jsonschema2pojo")
-public class Event {
+public class SeatGeekEvent {
 
     @SerializedName("links")
     @Expose

@@ -1,5 +1,8 @@
 package seatGeekPortal;
 
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
@@ -9,53 +12,63 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.collections.ObservableList;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
+import seatGeekPortal.EventAPIClasses.Performer;
+import seatGeekPortal.EventAPIClasses.SeatGeekEvent;
 
 import java.awt.*;
+import java.io.File;
 import java.net.URI;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.HashMap;
-import java.util.InputMismatchException;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
+import java.util.concurrent.ThreadLocalRandom;
+
+/**
+ * Controller:
+ * background image rotates - simple, clean interface intentional
+ * list is displayed only when populated with data - list is semi-transparent
+ * hovering over list item changes mouse to hand (clickable link) and list item to larger & bold font
+ * clicking a list item looks up the event in a hashmap and then opens the matching URL in SeatGeek for tickets
+ */
 
 public class SeatGeekController implements Initializable {
 
+    //FXML tags
     @FXML
     private AnchorPane fxAnchorPane;
-    @FXML
-    private Pane fxTopPane;
-    @FXML
-    private VBox fxVbox;
     @FXML
     private TextField fxSearchBox;
     @FXML
     private Button fxFindButton;
     @FXML
-    private Pane fxBottomPane;
-    @FXML
     private ListView<String> fxList;
-    @FXML
-    private ProgressBar fxProgressBar;
 
-    private HashMap<Integer, Event> eventsMap;
 
+    // instance variables
+    private HashMap<Integer, SeatGeekEvent> eventsMap;
+    private ArrayList<String> sBackgroundImages;
+
+    // constructor
     public SeatGeekController() {
         // map events to ID int in order to access event info after converted to String
         eventsMap = new HashMap<>();
+
+        // get the background images in the resources folder
+        sBackgroundImages = new ArrayList<>();
+        sBackgroundImages.addAll(getBackgroundImages());
     }
 
+    // initialize
     public void initialize(URL url, ResourceBundle rb) {
+
+        // create an observable list of events that match user input query
         final Service eventFinder = new Service<ObservableList<String>>() {
 
             @Override
@@ -66,12 +79,12 @@ public class SeatGeekController implements Initializable {
                         // search for matching events
                         String sSearchInput = fxSearchBox.getText();
                         SeatGeekTask seatGeekAPI = new SeatGeekTask(sSearchInput);
-                        ArrayList<Event> events = seatGeekAPI.getEvents();
+                        ArrayList<SeatGeekEvent> events = seatGeekAPI.getEvents();
 
                         // add events to hashmap and create description to display
                         ArrayList<String> eventDescriptions = new ArrayList<>();
                         int i = 1;
-                        for (Event e : events) {
+                        for (SeatGeekEvent e : events) {
                             eventsMap.put(i, e);
                             eventDescriptions.add(i + ". " + e.getTitle() + " | " + e.getVenue().getName() + " | " + getReadableDate(e.getDatetimeLocal()));
                             i++;
@@ -90,6 +103,10 @@ public class SeatGeekController implements Initializable {
         fxList.itemsProperty().bind(eventFinder.valueProperty());
         fxList.visibleProperty().bind(eventFinder.valueProperty().isNotNull());
 
+        // change background image every few seconds
+        cycleBackgroundImage();
+
+
         // search when button is clicked
         fxFindButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -100,7 +117,6 @@ public class SeatGeekController implements Initializable {
                 }
             }
         });
-
 
         // action when list item is clicked
         fxList.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -121,7 +137,6 @@ public class SeatGeekController implements Initializable {
                     Performer primaryPerformer = eventsMap.get(iEventHash).getPerformers().get(0);
                     String sImageURL = primaryPerformer.getImage();
 
-
                     // open the URL
                     openWebpage(new URI(sEventURL));
 
@@ -131,9 +146,37 @@ public class SeatGeekController implements Initializable {
                 }
             }
         });
-
     }
 
+    // change the background image every few seconds
+    private void cycleBackgroundImage() {
+        // create new timeline for animation
+        Timeline timeline = new Timeline();
+        timeline.setCycleCount(Animation.INDEFINITE);
+
+        // define parameters for key event: duration and event handler
+        Duration duration = Duration.seconds(3);
+        EventHandler<ActionEvent> onFinished = new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                // select a random background image from resources & assign to anchor pane
+                int iRandomIndex = ThreadLocalRandom.current().nextInt(1, sBackgroundImages.size());
+                String sNewImage = sBackgroundImages.get(iRandomIndex);
+                fxAnchorPane.setStyle("-fx-background-image: url(" + sNewImage + ");" +
+                        "-fx-background-repeat: stretch;" +
+                        "-fx-background-position: center center;" +
+                        "-fx-background-size: cover;");
+            }
+        };
+
+        // create keyframe (animation sequence)
+        KeyFrame keyFrame = new KeyFrame(duration, onFinished, null, null);
+
+        // add keyframe to timeline and play
+        timeline.getKeyFrames().add(keyFrame);
+        timeline.play();
+    }
 
     // helper function to convert SeatGeek API date & time into user friendly format
     private String getReadableDate(String sDateTime) {
@@ -154,6 +197,24 @@ public class SeatGeekController implements Initializable {
         }
 
         return sDate;
+    }
+
+    // helper function to get list of background image
+    private ArrayList<String> getBackgroundImages() {
+
+        // final list to return
+        ArrayList<String> sImages = new ArrayList<>();
+
+        // get list of file names stored in image directory
+        File f = new File("src/main/resources/images/");
+        ArrayList<String> sImageFileNames = new ArrayList<>(Arrays.asList(f.list()));
+
+        // append the image directory
+        for (String sFileName : sImageFileNames) {
+            sImages.add("/images/" + sFileName);
+        }
+
+        return sImages;
     }
 
     // helper function to open webpage in desktop browser

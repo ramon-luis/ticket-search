@@ -1,5 +1,5 @@
 
-package seatGeekPortal;
+package seatGeekPortal.EventAPIClasses;
 
 import java.util.ArrayList;
 import java.util.List;

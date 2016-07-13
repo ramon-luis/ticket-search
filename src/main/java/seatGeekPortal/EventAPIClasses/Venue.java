@@ -1,11 +1,12 @@
 
-package seatGeekPortal;
+package seatGeekPortal.EventAPIClasses;
 
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Generated;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import seatGeekPortal.EventAPIClasses.Location;
 
 @Generated("org.jsonschema2pojo")
 public class Venue {

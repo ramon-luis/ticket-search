@@ -12,7 +12,7 @@
 
 <AnchorPane id="pane" fx:id="fxAnchorPane" prefHeight="499.0" prefWidth="848.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seatGeekPortal.SeatGeekController">
    <children>
-      <ListView fx:id="fxList" layoutX="14.0" layoutY="109.0" opacity="0.8" prefHeight="370.0" prefWidth="815.0">
+      <ListView fx:id="fxList" layoutX="14.0" layoutY="109.0" opacity="0.7" prefHeight="370.0" prefWidth="815.0">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></ListView>

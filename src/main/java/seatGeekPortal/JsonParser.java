@@ -6,13 +6,16 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 /**
- * Created by RAM0N on 7/6/16.
+ * Parses JSON to String
+ * Provided in base code from Yelp client API example
  */
-public class JsonParser {
+
+class JsonParser {
 
     private static final String USER_AGENT = "Mozilla/5.0";
+
     //http://www.mkyong.com/java/how-to-send-http-request-getpost-in-java/
-    public static String sendGet(String strUrl) throws Exception {
+    static String sendGet(String strUrl) throws Exception {
 
         URL obj = new URL(strUrl);
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
@@ -24,7 +27,7 @@ public class JsonParser {
             BufferedReader in = new BufferedReader(
                     new InputStreamReader(con.getInputStream()));
             String inputLine;
-            StringBuffer response = new StringBuffer();
+            StringBuilder response = new StringBuilder();
 
             while ((inputLine = in.readLine()) != null) {
                 response.append(inputLine);

@@ -1,5 +1,5 @@
 
-package seatGeekPortal;
+package seatGeekPortal.EventAPIClasses;
 
 import javax.annotation.Generated;
 import com.google.gson.annotations.Expose;

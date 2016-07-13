@@ -1,5 +1,5 @@
 
-package seatGeekPortal;
+package seatGeekPortal.EventAPIClasses;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +15,7 @@ public class EventData {
     private Meta meta;
     @SerializedName("events")
     @Expose
-    private List<Event> events = new ArrayList<Event>();
+    private List<SeatGeekEvent> events = new ArrayList<SeatGeekEvent>();
 
     /**
      * 
@@ -40,7 +40,7 @@ public class EventData {
      * @return
      *     The events
      */
-    public List<Event> getEvents() {
+    public List<SeatGeekEvent> getEvents() {
         return events;
     }
 
@@ -49,7 +49,7 @@ public class EventData {
      * @param events
      *     The events
      */
-    public void setEvents(List<Event> events) {
+    public void setEvents(List<SeatGeekEvent> events) {
         this.events = events;
     }
 
