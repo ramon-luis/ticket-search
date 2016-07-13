@@ -44,5 +44,15 @@
             <DropShadow />
          </effect>
       </Button>
+      <ProgressBar fx:id="fxProgressBar" layoutX="15.0" layoutY="41.0" opacity="0.5" prefHeight="36.0" prefWidth="682.0" progress="0.0">
+         <effect>
+            <BoxBlur />
+         </effect>
+      </ProgressBar>
+      <Label fx:id="fxLabel" layoutX="21.0" layoutY="115.0" prefHeight="27.0" prefWidth="418.0" text="Major buzzkill: no matching events..." textFill="WHITE" visible="false">
+         <font>
+            <Font name="Avenir Medium Oblique" size="18.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

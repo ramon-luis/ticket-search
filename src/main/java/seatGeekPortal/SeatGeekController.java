@@ -12,7 +12,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.collections.ObservableList;
@@ -33,22 +36,23 @@ import java.util.concurrent.ThreadLocalRandom;
 /**
  * Controller:
  * background image rotates - simple, clean interface intentional
+ * progress bar updates during search: semi-transparent overlay
+ * ENTER in searchbox or find button both run search
  * list is displayed only when populated with data - list is semi-transparent
  * hovering over list item changes mouse to hand (clickable link) and list item to larger & bold font
  * clicking a list item looks up the event in a hashmap and then opens the matching URL in SeatGeek for tickets
+ * label shows message if no matching data found
  */
 
 public class SeatGeekController implements Initializable {
 
     //FXML tags
-    @FXML
-    private AnchorPane fxAnchorPane;
-    @FXML
-    private TextField fxSearchBox;
-    @FXML
-    private Button fxFindButton;
-    @FXML
-    private ListView<String> fxList;
+    @FXML private AnchorPane fxAnchorPane;
+    @FXML private TextField fxSearchBox;
+    @FXML private Button fxFindButton;
+    @FXML private ProgressBar fxProgressBar;
+    @FXML private ListView<String> fxList;
+    @FXML private Label fxLabel;
 
 
     // instance variables
@@ -63,6 +67,7 @@ public class SeatGeekController implements Initializable {
         // get the background images in the resources folder
         sBackgroundImages = new ArrayList<>();
         sBackgroundImages.addAll(getBackgroundImages());
+
     }
 
     // initialize
@@ -75,6 +80,18 @@ public class SeatGeekController implements Initializable {
             protected Task createTask() {
                 return new Task<ObservableList<String>>() {
                     protected ObservableList<String> call() throws InputMismatchException {
+
+                        // hide the label -> only show if no match found
+                        fxLabel.setVisible(false);
+
+                        // update the progress bar
+                        int iMax = 15;
+                        for (int i = 0; i < iMax; i++) {
+                            try {
+                                Thread.sleep(100);
+                            } catch (Exception e) {}
+                            updateProgress(i, iMax);
+                        }
 
                         // search for matching events
                         String sSearchInput = fxSearchBox.getText();
@@ -90,6 +107,14 @@ public class SeatGeekController implements Initializable {
                             i++;
                         }
 
+                        // replace list with null if empty -> hides listview and shows label that no matches found
+                        if (eventDescriptions.size() == 0) {
+                            eventDescriptions = null;
+                            fxLabel.setVisible(true);
+                        } else {
+                            fxLabel.setVisible(false);
+                        }
+
                         // populate the list with event descriptions
                         return FXCollections.observableArrayList(eventDescriptions);
                     }
@@ -102,12 +127,13 @@ public class SeatGeekController implements Initializable {
         fxFindButton.disableProperty().bind(eventFinder.runningProperty());
         fxList.itemsProperty().bind(eventFinder.valueProperty());
         fxList.visibleProperty().bind(eventFinder.valueProperty().isNotNull());
+        fxProgressBar.progressProperty().bind(eventFinder.progressProperty());
+        fxProgressBar.visibleProperty().bind(eventFinder.runningProperty());
 
         // change background image every few seconds
         cycleBackgroundImage();
 
-
-        // search when button is clicked
+        // search when find button is clicked
         fxFindButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -117,6 +143,29 @@ public class SeatGeekController implements Initializable {
                 }
             }
         });
+
+        // action when ENTER pressed on find button
+        fxFindButton.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if (event.getCode() == KeyCode.ENTER && !eventFinder.isRunning()) {
+                    eventFinder.reset();
+                    eventFinder.start();
+                }
+            }
+        });
+
+        // action when ENTER pressed in textfield
+        fxSearchBox.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if (event.getCode() == KeyCode.ENTER && !eventFinder.isRunning()) {
+                    eventFinder.reset();
+                    eventFinder.start();
+                }
+            }
+        });
+
 
         // action when list item is clicked
         fxList.setOnMouseClicked(new EventHandler<MouseEvent>() {
