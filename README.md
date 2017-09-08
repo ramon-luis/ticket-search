@@ -2,12 +2,12 @@
 
 Ticket Search is a web application that allows users to search for event tickets
 
-The application uses the SeatGeek API to search for event data, parses the JSON results, and displays relevant data points in a user-friendly form.  Users can search based on any number of keywords, including: location, artist, team, date, sport, etc. Users can select a resulting event from the resulting list which opens the direct SeatGeek url for that event in a new browser window with with more details and tickets for purchase for that specific event.
-
+The application uses the SeatGeek API to search for event data, parses the JSON results, and displays relevant data points in a user-friendly form.  Users can search based on any number of keywords, including: location, artist, team, date, sport, etc. Users can select an event from the resulting list which opens the SeatGeek url for that event in a new browser window with more details about the event, including options for purchasing tickets.  
 
 ## Getting Started / Installing / Deployment
 
-Compile the src directory and call Main.  The main method is located in src/main/java/seatGeekPortal/SeatGeekMain.java
+Compile the src directory and call Main.  The main method is located in:  
+`src/main/java/seatGeekPortal/SeatGeekMain.java`  
 
 ```
 $ javac src/main/java/seatGeekPortal/SeatGeekMain.java
@@ -18,7 +18,7 @@ Or open in your favorite IDE (Eclipse, IntelliJ) and run Main in SeatGeekMain.ja
 
 ### Prerequisites
 
-SeatGeek API Key - [free](http://platform.seatgeek.com/)  
+SeatGeek API Key [free](http://platform.seatgeek.com/) - to access data
 
 ## Built With
 
@@ -31,4 +31,4 @@ SeatGeek API Key - [free](http://platform.seatgeek.com/)
 
 ## Acknowledgments
 
-* Thank you to Adam Gerber at the University of Chicago for providing the base code & inspiration, as well as introducing me to the world of computer programming!
+* Thank you to Adam Gerber at the University of Chicago for introducing me to the world of computer programming!
