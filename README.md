@@ -31,4 +31,4 @@ SeatGeek API Key [free](http://platform.seatgeek.com/) - to access data
 
 ## Acknowledgments
 
-* Thank you to Adam Gerber at the University of Chicago for introducing me to the world of computer programming!
+* Thank you to Adam Gerber at the University of Chicago
