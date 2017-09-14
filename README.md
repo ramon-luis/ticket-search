@@ -4,6 +4,15 @@ Ticket Search is a web application that allows users to search for event tickets
 
 The application uses the SeatGeek API to search for event data, parses the JSON results, and displays relevant data points in a user-friendly form.  Users can search based on any number of keywords, including: location, artist, team, date, sport, etc. Users can select an event from the resulting list which opens the SeatGeek url for that event in a new browser window with more details about the event, including options for purchasing tickets.  
 
+<kbd>
+	<img src="https://github.com/ramon-luis/ticket-search/raw/master/demo/ticket-search-screenshot-1.png">
+</kbd>
+<br />
+<br />
+<kbd>
+	<img src="https://github.com/ramon-luis/ticket-search/raw/master/demo/ticket-search-screenshot-2.png">
+</kbd>
+
 ## Getting Started / Installing / Deployment
 
 Compile the src directory and call Main.  The main method is located in:  
